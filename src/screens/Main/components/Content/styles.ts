@@ -1,4 +1,7 @@
+import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
+
+import theme from "../../../../global/styles/theme";
 
 export const Container = styled.View`
   width: 100%;
@@ -43,30 +46,14 @@ export const Options = styled.View`
   justify-content: space-around;
 `;
 
+export const OptionsButtonText = styled.TouchableOpacity.attrs({ activeOpacity: 1 })`
+  padding: 15px;
+`;
+
 export const OptionsText = styled.Text`
   font-size: 25px;
   font-family: ${({ theme }) => theme.fonts.regular};
   color: ${({ theme }) => theme.colors.text};
-`;
-
-export const OptionsSliderContent = styled.View`
-  height: 55px;
-  width: 200px;
-  position: absolute;
-  align-items: center;
-  border-radius: 30px;
-  left: 0;
-  right: 0;
-`;
-
-export const OptionsSlider = styled.View`
-  height: 55px;
-  width: 55px;
-  border-radius: 50px;
-  background: ${({ theme }) => theme.colors.yellow};
-  align-items: center;
-  justify-content: center;
-  box-shadow: 2px 2px 20px ${({ theme }) => theme.colors.yellow};
 `;
 
 export const OptionsSliderText = styled.Text`
@@ -74,3 +61,30 @@ export const OptionsSliderText = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
   color: ${({ theme }) => theme.colors.black};
 `;
+
+export const styles = StyleSheet.create({
+  slider: {
+    height: 55,
+    width: 55,
+    borderRadius: 50,
+    backgroundColor: theme.colors.yellow,
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    shadowOpacity: 1,
+    shadowRadius: 20,
+    shadowColor: theme.colors.yellow,
+    shadowOffset: {
+      width: 2,
+      height: 2,
+    },
+  },
+  roundBoard: {
+    position: "absolute",
+    shadowOpacity: 0.6,
+    shadowRadius: 25,
+    shadowColor: theme.colors.brown,
+    shadowoffset: { width: 0, height: 20 },
+    zIndex: 10,
+  },
+});

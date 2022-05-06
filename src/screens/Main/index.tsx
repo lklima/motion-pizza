@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useWindowDimensions } from "react-native";
 import * as S from "./styles";
 
@@ -10,10 +10,12 @@ import CartIcon from "../../assets/cart.svg";
 export default function Main() {
   const { width } = useWindowDimensions();
 
+  const [size, setSize] = useState("m");
+
   return (
     <S.Container>
       <Header />
-      <Content />
+      <Content size={size} setSize={setSize} />
       <OptionsSlider />
       <S.AddButton>
         <CartIcon width={30} height={30} />

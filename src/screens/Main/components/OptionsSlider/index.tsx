@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import { FlatList } from "react-native";
 
 import * as S from "./styles";
