@@ -1,3 +1,4 @@
+import Animated from "react-native-reanimated";
 import styled from "styled-components/native";
 
 export const Content = styled.View`
@@ -16,9 +17,14 @@ export const OptionsButton = styled.TouchableOpacity.attrs({
   activeOpacity: 0.7,
 })``;
 
-export const OptionsImage = styled.Image.attrs({
+export const OptionsImage = styled(Animated.Image).attrs({
   resizeMode: "contain",
 })`
   height: 90px;
   width: 150px;
+  margin-top: ${({ index }) => {
+    if (index === 0) {
+      return "20px";
+    }
+  }};
 `;

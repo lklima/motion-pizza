@@ -10,12 +10,10 @@ import CartIcon from "../../assets/cart.svg";
 export default function Main() {
   const { width } = useWindowDimensions();
 
-  const [size, setSize] = useState("m");
-
   return (
     <S.Container>
       <Header />
-      <Content size={size} setSize={setSize} />
+      <Content />
       <OptionsSlider />
       <S.AddButton>
         <CartIcon width={30} height={30} />
