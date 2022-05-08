@@ -37,7 +37,6 @@ export const PizzaContent = styled.View`
   width: ${width}px;
   align-items: center;
   justify-content: center;
-  overflow: visible;
 `;
 
 export const Pizza = styled(Animated.Image)`
@@ -50,6 +49,7 @@ export const Price = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
   color: ${({ theme }) => theme.colors.black};
   margin-top: 10px;
+  z-index: 20;
 `;
 
 export const Options = styled.View`
@@ -86,4 +86,30 @@ export const OptionsSlider = styled(Animated.View)`
   align-items: center;
   justify-content: center;
   position: absolute;
+`;
+
+export const AdddButton = styled.TouchableOpacity.attrs({ activeOpacity: 0.7 })`
+  height: 50px;
+  width: 50px;
+  border-radius: 50px;
+  background-color: ${({ theme }) => theme.colors.white};
+  box-shadow: 2px 2px 20px ${({ theme }) => theme.colors.gray};
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 45px;
+  z-index: 20;
+`;
+
+export const RemoveButton = styled.TouchableOpacity.attrs({ activeOpacity: 0.7 })`
+  height: 50px;
+  width: 50px;
+  border-radius: 50px;
+  background-color: ${({ theme }) => theme.colors.white};
+  box-shadow: 2px 2px 20px ${({ theme }) => theme.colors.gray};
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 45px;
+  z-index: 20;
 `;

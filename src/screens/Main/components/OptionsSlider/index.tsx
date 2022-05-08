@@ -1,51 +1,45 @@
-import React, { useRef, useState } from "react";
-import { FlatList, ViewToken } from "react-native";
-import { useSharedValue } from "react-native-reanimated";
+import React from "react";
+import { FlatList, ImageSourcePropType } from "react-native";
 
 import * as S from "./styles";
 
 import { data } from "./utils";
 
-interface ViableItems {
-  viewableItems: ViewToken[];
+export interface Additional {
+  name: string;
+  image: ImageSourcePropType;
+  price: number;
 }
 
-export default function OptionsSlider() {
-  const [index, setIndex] = useState(0);
+interface Props {
+  aditionals: Additional[];
+  setAditionals(item: object): void;
+}
 
-  const marginTop = useSharedValue(0);
-
-  const viewConfigRef = useRef({ itemVisiblePercentThreshold: 50 });
-  const onViewRef = useRef(({ viewableItems }: ViableItems) => {
-    const { index = 0 } = viewableItems[0];
-
-    console.log(viewableItems);
-
-    setIndex(index || 0);
-  });
-
-  function renderItem() {
-    return;
+export default function OptionsSlider({ aditionals, setAditionals }: Props) {
+  function add(additional: Additional) {
+    if (aditionals.length < 3) {
+      setAditionals((previous: Additional[]) => [...previous, additional]);
+    }
   }
 
   return (
     <S.Content>
-      <S.OptionsCount>0/3</S.OptionsCount>
+      <S.OptionsCount>{aditionals.length}/3</S.OptionsCount>
       <FlatList
         data={data}
-        keyExtractor={(item) => item.name}
+        keyExtractor={(_, index) => String(index)}
         horizontal
         showsHorizontalScrollIndicator={false}
         disableIntervalMomentum
-        onViewableItemsChanged={onViewRef.current}
-        viewabilityConfig={viewConfigRef.current}
-        pagingEnabled
         decelerationRate="fast"
-        snapToAlignment="center"
-        renderItem={({ item, index }) => {
+        contentContainerStyle={{ marginLeft: -20 }}
+        renderItem={({ item }) => {
+          const hasAdded = aditionals.includes(item);
+
           return (
-            <S.OptionsButton>
-              <S.OptionsImage source={item.image} index={index} />
+            <S.OptionsButton disabled={hasAdded} onPress={() => add(item)}>
+              <S.OptionsImage source={item.image} />
             </S.OptionsButton>
           );
         }}

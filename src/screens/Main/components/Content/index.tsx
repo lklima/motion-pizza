@@ -4,7 +4,6 @@ import {
   useSharedValue,
   withTiming,
   withDelay,
-  withSpring,
 } from "react-native-reanimated";
 import {
   FlatList,
@@ -21,31 +20,42 @@ import leaves from "../../../../assets/leaves.png";
 
 import { pizzas } from "../../utils/pizzas";
 
+import { Additional } from "../OptionsSlider";
+import AddButtons from "./components/AddButtons";
+import Additionals from "./components/Additionals";
+
 interface ViableItems {
   viewableItems: ViewToken[];
 }
 
-export default function Content() {
+interface Props {
+  index: number;
+  aditionals: Additional[];
+  setIndex(index: number): void;
+}
+
+export default function Content({ index, aditionals, setIndex }: Props) {
   const left = useSharedValue(71);
   const boardScale = useSharedValue(0.95);
   const boardRotateZ = useSharedValue(0);
   const leavesRotateZ = useSharedValue(0);
   const pizzaScale = useSharedValue(0.95);
+  const pizzaScalRotateZ = useSharedValue(0);
 
   const [size, setSize] = useState("m");
-  const [index, setIndex] = useState(0);
 
   const xValue = useRef(0);
   const viewConfigRef = useRef({ itemVisiblePercentThreshold: 50 });
   const onViewRef = useRef(({ viewableItems }: ViableItems) => {
-    const { index = 0 } = viewableItems[0];
+    const currIndex = viewableItems[0]?.index ?? 0;
 
-    setIndex(index || 0);
+    setIndex(currIndex);
   });
 
   const previowsIndex = index > 0 ? index - 1 : index;
   const previowsPrice = index === 0 ? 0 : pizzas[previowsIndex].prices[size];
-  const price = pizzas[index].prices[size];
+  const addPrice = aditionals.length > 0 ? aditionals[0].price : 0;
+  const price = pizzas[index].prices[size] + addPrice;
 
   useEffect(() => {
     const prevIsLarge = boardScale.value > 1;
@@ -80,19 +90,21 @@ export default function Content() {
     } = event;
     const time = { duration: 100 };
 
-    if (contentOffset.x > 0 && contentOffset.x < 828) {
+    if (contentOffset.x > 0 && contentOffset.x < 1242) {
       if (contentOffset.x > xValue.current) {
         boardRotateZ.value = withTiming(boardRotateZ.value - 2, time);
         boardRotateZ.value = withDelay(150, withTiming(boardRotateZ.value + 1.5, time));
         boardRotateZ.value = withDelay(300, withTiming(boardRotateZ.value - 1.5, time));
         leavesRotateZ.value = withTiming(leavesRotateZ.value - 1, time);
         leavesRotateZ.value = withDelay(150, withTiming(leavesRotateZ.value + 1, time));
+        pizzaScalRotateZ.value = withTiming(pizzaScalRotateZ.value - 7, time);
       } else if (contentOffset.x < xValue.current) {
         boardRotateZ.value = withTiming(boardRotateZ.value + 2, time);
         boardRotateZ.value = withDelay(150, withTiming(boardRotateZ.value - 1.5));
         boardRotateZ.value = withDelay(300, withTiming(boardRotateZ.value + 1.5, time));
         leavesRotateZ.value = withTiming(leavesRotateZ.value + 1, time);
         leavesRotateZ.value = withDelay(150, withTiming(leavesRotateZ.value - 1, time));
+        pizzaScalRotateZ.value = withTiming(pizzaScalRotateZ.value + 7, time);
       }
     }
 
@@ -108,7 +120,7 @@ export default function Content() {
   }));
 
   const pizzaImageAnimatedStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: pizzaScale.value }],
+    transform: [{ scale: pizzaScale.value }, { rotateZ: `${pizzaScalRotateZ.value}deg` }],
   }));
 
   const leavesImageAnimatedStyle = useAnimatedStyle(() => ({
@@ -122,6 +134,7 @@ export default function Content() {
           <S.RoundBoard source={board} />
         </S.RoundBoardContent>
         <S.Leaves source={leaves} style={leavesImageAnimatedStyle} />
+        <AddButtons index={index} />
         <FlatList
           data={pizzas}
           keyExtractor={(pizza) => pizza.name}
@@ -132,15 +145,15 @@ export default function Content() {
           onViewableItemsChanged={onViewRef.current}
           viewabilityConfig={viewConfigRef.current}
           onScroll={scrollHandler}
-          onScrollBeginDrag={() => console.log("eee")}
           renderItem={({ item }) => (
             <S.PizzaContent>
+              <Additionals aditionals={aditionals} />
               <S.Pizza source={item.pic} style={pizzaImageAnimatedStyle} />
             </S.PizzaContent>
           )}
           showsHorizontalScrollIndicator={false}
           horizontal
-          style={{ position: "absolute" }}
+          style={{ position: "absolute", overflow: "visible" }}
         />
       </S.ImageContent>
       <S.Price>

@@ -13,6 +13,12 @@ interface PizzaProps {
 
 export const pizzas: Array<PizzaProps> = [
   {
+    name: "Pizza",
+    desc: "Pick your favourite",
+    prices: { s: 0, m: 0, l: 0 },
+    pic: require("../../../assets/empty.png"),
+  },
+  {
     name: "Italian",
     desc: "tomato sauce & mozzarella",
     prices: { s: 5.5, m: 7.5, l: 9.5 },

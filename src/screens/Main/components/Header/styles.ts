@@ -1,3 +1,4 @@
+import Animated from "react-native-reanimated";
 import styled from "styled-components/native";
 
 export const Header = styled.View`
@@ -9,17 +10,21 @@ export const Header = styled.View`
 `;
 
 export const TextArea = styled.View`
+  flex: 1;
   align-items: center;
+  height: 75px;
 `;
 
-export const Title = styled.Text`
+export const Title = styled(Animated.Text)`
   font-size: 40px;
   font-family: ${({ theme }) => theme.fonts.bold};
   color: ${({ theme }) => theme.colors.black};
+  text-align: center;
 `;
 
-export const SubTitle = styled.Text`
+export const SubTitle = styled(Animated.Text)`
   font-size: 18px;
   font-family: ${({ theme }) => theme.fonts.regular};
   color: ${({ theme }) => theme.colors.text};
+  text-align: center;
 `;
