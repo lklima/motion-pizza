@@ -153,7 +153,7 @@ export default function Content({ index, aditionals, setIndex }: Props) {
           )}
           showsHorizontalScrollIndicator={false}
           horizontal
-          style={{ position: "absolute", overflow: "visible" }}
+          style={{ position: "absolute", overflow: "visible", width: "100%" }}
         />
       </S.ImageContent>
       <S.Price>

@@ -34,6 +34,7 @@ export default function OptionsSlider({ aditionals, setAditionals }: Props) {
         disableIntervalMomentum
         decelerationRate="fast"
         contentContainerStyle={{ marginLeft: -20 }}
+        style={{ zIndex: 999 }}
         renderItem={({ item }) => {
           const hasAdded = aditionals.includes(item);
 

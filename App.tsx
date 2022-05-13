@@ -6,8 +6,6 @@ import {
 } from "@expo-google-fonts/source-serif-pro";
 import { ThemeProvider } from "styled-components";
 
-import "react-native-gesture-handler";
-
 import Main from "./src/screens/Main";
 
 import theme from "./src/global/styles/theme";

@@ -62,6 +62,7 @@ export const Options = styled.View`
   border-radius: 30px;
   align-items: center;
   justify-content: space-between;
+  elevation: 10;
 `;
 
 export const OptionsButtonText = styled.TouchableOpacity.attrs({ activeOpacity: 1 })`

@@ -17,7 +17,7 @@ export const AddButton = styled.TouchableOpacity.attrs({
   position: absolute;
   align-items: center;
   justify-content: center;
-  bottom: 55px;
+  bottom: 5.2%;
   z-index: 10;
   flex-direction: row;
 `;
@@ -31,5 +31,5 @@ export const AddButtonText = styled.Text`
 
 export const BottomBar = styled(Bottom)`
   position: absolute;
-  bottom: -30px;
+  bottom: -5%;
 `;

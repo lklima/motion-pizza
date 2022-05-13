@@ -7,6 +7,7 @@ export const AdddButton = styled(Animated.View)`
   border-radius: 50px;
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: 2px 2px 20px ${({ theme }) => theme.colors.gray};
+  elevation: 10;
   align-items: center;
   justify-content: center;
   position: absolute;
@@ -25,4 +26,5 @@ export const RemoveButton = styled(Animated.View)`
   position: absolute;
   right: 45px;
   z-index: 999;
+  elevation: 10;
 `;
